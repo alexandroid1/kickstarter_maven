@@ -21,7 +21,7 @@ public class KickstarterRunner {
         Properties properties = new Properties();
 
         try {
-            fis = new FileInputStream("./resources/application.properties");
+            fis = new FileInputStream("./src/main/resources/application.properties");
             properties.load(fis);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
