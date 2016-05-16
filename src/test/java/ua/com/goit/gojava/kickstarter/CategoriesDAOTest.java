@@ -16,11 +16,12 @@ import java.util.Properties;
 public class CategoriesDAOTest extends CategoriesTest {
 
     private Connection connection;
+    public static final String DATABASE_PATH = "D:\\java\\projects\\Kickstarter\\target\\test-classes\\test-database.db";
 
     @Override
     Categories getCategories() throws SQLException {
         Properties properties = new Properties();
-        properties.put("jdbc.url","jdbc:sqlite:D:\\java\\projects\\Kickstarter\\target\\test-classes\\test-database.db");
+        properties.put("jdbc.url","jdbc:sqlite:" + DATABASE_PATH);
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -29,7 +30,6 @@ public class CategoriesDAOTest extends CategoriesTest {
         }
 
         connection = DriverManager.getConnection(properties.getProperty("jdbc.url"), properties);
-
 
         Statement statement = null;
         try {
@@ -50,7 +50,6 @@ public class CategoriesDAOTest extends CategoriesTest {
     @After
     public void cleanUp() throws SQLException {
         connection.close();
-        new File("D:\\java\\projects\\Kickstarter\\target\\test-classes\\test-database.db").delete();
+        new File(DATABASE_PATH).delete();
     }
-
 }
