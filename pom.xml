@@ -19,6 +19,7 @@
         <Jstl.version>1.2</Jstl.version>
         <taglibs.version>1.1.2</taglibs.version>
         <jstl-api>1.2</jstl-api>
+        <org.springframework>3.2.17.RELEASE</org.springframework>
     </properties>
 
     <dependencies>
@@ -35,6 +36,20 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>${sqlite-jdbc.version}</version>
         </dependency>
+
+        <!-- http://mvnrepository.com/artifact/org.springframework/spring-core -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${org.springframework}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${org.springframework}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>jstl</groupId>
