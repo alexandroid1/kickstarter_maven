@@ -3,6 +3,8 @@ package ua.com.goit.gojava.kickstarter.dao;
 import ua.com.goit.gojava.kickstarter.Categories;
 import ua.com.goit.gojava.kickstarter.Category;
 
+
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,10 +14,10 @@ import java.util.List;
  */
 public class CategoriesDAO implements Categories {
 
-    private Connection connection;
+    private DataSource dataSource;
 
-    public CategoriesDAO(Connection connection) {
-        this.connection = connection;
+    public CategoriesDAO(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Override
@@ -25,7 +27,7 @@ public class CategoriesDAO implements Categories {
                     + "(?)";
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(insertTableSQL);
+            preparedStatement = getConnection().prepareStatement(insertTableSQL);
             preparedStatement.setString(1, category.getName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -37,7 +39,7 @@ public class CategoriesDAO implements Categories {
     @Override
     public List<Category> getCategories() {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = getConnection().createStatement();
             statement.setQueryTimeout(30);
             List<Category> result = new LinkedList<Category>();
 
@@ -55,7 +57,7 @@ public class CategoriesDAO implements Categories {
     @Override
     public Category get(int index) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = getConnection().createStatement();
             statement.setQueryTimeout(30);
 
             ResultSet rs = statement
@@ -73,7 +75,7 @@ public class CategoriesDAO implements Categories {
     @Override
     public int size() {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = getConnection().createStatement();
             statement.setQueryTimeout(30);
 
             ResultSet rs = statement.executeQuery("select COUNT(*) FROM Categories");
@@ -86,7 +88,7 @@ public class CategoriesDAO implements Categories {
     @Override
     public boolean exists(final int id) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = getConnection().createStatement();
             statement.setQueryTimeout(30);
 
             ResultSet rs = statement.executeQuery("select id FROM Categories WHERE id = " + id);
@@ -96,4 +98,7 @@ public class CategoriesDAO implements Categories {
         }
     }
 
+    public Connection getConnection() throws SQLException{
+        return dataSource.getConnection();
+    }
 }
