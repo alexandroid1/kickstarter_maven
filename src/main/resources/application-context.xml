@@ -7,9 +7,9 @@
        <bean id="categoriesDao" class="ua.com.goit.gojava.kickstarter.dao.CategoriesDAO">
               <!-- collaborators and configuration for this bean go here -->
 
-              <constructor-arg ref="connection"/>
+              <constructor-arg ref="dataSource"/>
        </bean>
 
-       <bean id="connection" class=""></bean>
+       <bean id="dataSource" class=""></bean>
 
 </beans>
