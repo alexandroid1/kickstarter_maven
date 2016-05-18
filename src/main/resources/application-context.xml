@@ -10,6 +10,16 @@
               <constructor-arg ref="dataSource"/>
        </bean>
 
-       <bean id="dataSource" class=""></bean>
+       <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
+              <property name="driverClassName" value="org.h2.Driver" />
+              <property name="url" value="jdbc:h2:mem:xml-config" />
+              <property name="username" value="sa" />
+              <property name="password" value="" />
+              <property name="initialSize" value="5" />
+              <property name="maxActive" value="10" />
+              <property name="maxIdle" value="5" />
+              <property name="minIdle" value="2" />
+       </bean>
+
 
 </beans>
