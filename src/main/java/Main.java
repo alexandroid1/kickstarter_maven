@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("/application-context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("/webapp/WEB-INF/application-context.xml");
         CategoriesDAO categoriesDAO = context.getBean(CategoriesDAO.class);
         List<Category> categories = categoriesDAO.getCategories();
         System.out.println(categories.toString());
