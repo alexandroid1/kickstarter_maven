@@ -1,5 +1,8 @@
 package ua.com.goit.gojava.kickstarter.controller;
 
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+import ua.com.goit.gojava.kickstarter.Categories;
 import ua.com.goit.gojava.kickstarter.Category;
 import ua.com.goit.gojava.kickstarter.dao.CategoriesDAO;
 
@@ -31,11 +34,12 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = getAction(req); //   /categories
-        Connection connection = getConnection(req);
+
+        WebApplicationContext springContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+        Categories categoriesDAO =(Categories)springContext.getBean("categoriesDAO");
 
         if (action.startsWith("/categories")){
 
-            CategoriesDAO categoriesDAO = new CategoriesDAO(connection);
             List<Category> categories = categoriesDAO.getCategories();
 
             req.setAttribute("categories", categories);
