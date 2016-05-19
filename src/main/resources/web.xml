@@ -21,6 +21,7 @@
     <servlet>
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>ua.com.goit.gojava.kickstarter.controller.MainServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
