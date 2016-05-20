@@ -9,7 +9,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>../../main/resources/application-context.xml</param-value>
+        <param-value>src/main/resources/application-context.xml</param-value>
     </context-param>
 
     <listener>

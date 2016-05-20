@@ -1,11 +1,14 @@
 package ua.com.goit.gojava.kickstarter.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import ua.com.goit.gojava.kickstarter.Categories;
 import ua.com.goit.gojava.kickstarter.Category;
 import ua.com.goit.gojava.kickstarter.dao.CategoriesDAO;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,16 +34,22 @@ public class MainServlet extends HttpServlet {
         }
     }
 
+    @Autowired
+    private Categories categoriesDao;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException{
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,config.getServletContext());
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = getAction(req); //   /categories
 
-        WebApplicationContext springContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-        Categories categoriesDAO =(Categories)springContext.getBean("categoriesDAO");
-
         if (action.startsWith("/categories")){
 
-            List<Category> categories = categoriesDAO.getCategories();
+            List<Category> categories = categoriesDao.getCategories();
 
             req.setAttribute("categories", categories);
             req.setAttribute("message", "Hello JSP!");
